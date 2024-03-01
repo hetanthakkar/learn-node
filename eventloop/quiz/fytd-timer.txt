@@ -1,1 +1,22 @@
 - In eventloop/timer.js, what will be the order of execution? Briefly explain the order of execution w.r.t the event loop phases.
+
+In eventloop/timer.js, the order of execution will be as follows:
+
+foo is logged to the console.
+baz is logged to the console.
+foo is logged to the console.
+baz is logged to the console.
+2 : bar is logged to the console.
+1 : bar is logged to the console.
+Brief explanation of the order of execution w.r.t the event loop phases:
+
+The whole script runs synchronously.
+foo(2) is called, logging "foo" to the console.
+setTimeout for foo(2) is queued in the pending callbacks phase of the event loop.
+"baz" is logged to the console.
+foo(1) is called, logging "foo" to the console.
+setTimeout for foo(1) is queued in the pending callbacks phase of the event loop.
+"baz" is logged to the console.
+After the operations of the main thread are completed, the event loop is executed.
+The console.log inside the setTimeout for foo(2) is executed, logging "2 : bar" to the console.
+The console.log inside the setTimeout for foo(1) is executed, logging "1 : bar" to the console.
